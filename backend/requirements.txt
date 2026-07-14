@@ -1,0 +1,21 @@
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+sqlalchemy==2.0.23
+asyncpg==0.29.0
+motor==3.6.0
+pymongo==4.9.2
+redis==5.0.1
+kafka-python==2.0.2
+python-dotenv==1.0.0
+httpx==0.25.1
+psycopg2-binary==2.9.9
+python-multipart==0.0.6
+websockets==12.0
+numpy==1.26.2
+# CPU-only torch for on-demand FinBERT (much smaller than CUDA wheel)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.1.0+cpu
+transformers==4.35.0
+requests==2.31.0
+

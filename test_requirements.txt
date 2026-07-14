@@ -1,0 +1,17 @@
+# Standalone test dependencies (scraping + sentiment without Docker)
+requests==2.31.0
+fake-useragent==1.4.0
+psycopg2-binary==2.9.9
+pymongo==4.6.1
+redis==5.0.1
+kafka-python==2.0.2
+transformers==4.35.0
+torch==2.2.0
+torchvision==0.17.0
+selenium==4.15.2
+undetected-chromedriver==3.5.4
+webdriver-manager==4.0.1
+httpx==0.25.2
+huggingface-hub==0.19.3
+tokenizers==0.15.1
+

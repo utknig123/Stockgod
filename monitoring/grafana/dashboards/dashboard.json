@@ -1,0 +1,40 @@
+{
+  "dashboard": {
+    "title": "IPO Sentiment Analysis Dashboard",
+    "tags": ["sentiment", "ipo"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "title": "API Requests",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total[5m])",
+            "legendFormat": "{{method}} {{endpoint}}"
+          }
+        ]
+      },
+      {
+        "title": "Kafka Messages",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "kafka_messages_in_per_sec",
+            "legendFormat": "Messages/sec"
+          }
+        ]
+      },
+      {
+        "title": "Sentiment Processing Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(sentiment_processed_total[5m])",
+            "legendFormat": "Processed/sec"
+          }
+        ]
+      }
+    ]
+  }
+}
+

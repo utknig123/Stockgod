@@ -1,0 +1,18 @@
+# Example override file for custom configurations
+# Copy this to docker-compose.override.yml and modify as needed
+
+version: '3.8'
+
+services:
+  # Override environment variables
+  scraper-reddit:
+    environment:
+      REDDIT_CLIENT_ID: your_client_id_here
+      REDDIT_CLIENT_SECRET: your_client_secret_here
+      REDDIT_USER_AGENT: IPO-Sentiment-Analysis/1.0
+
+  # Scale services
+  # scraper-twitter:
+  #   deploy:
+  #     replicas: 2
+

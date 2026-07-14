@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+dist/
+*.egg-info/
+*.egg
+
+# IDEs / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.local
+
+# Logs / runtime
+*.log
+scraped_data/
+processed/
+analyze_*.json
+analyze_out.txt
+
+# ML cache / checkpoints (large)
+models/*
+!models/.gitkeep
+/tmp/checkpoint/
+/tmp/checkpoint_aggregated/
+
+# Local data dumps
+*.csv
+*.xlsx
