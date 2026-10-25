@@ -98,6 +98,30 @@ def build_suggestion(
     }
 
 
+_TICKER = re.compile(r"\b[A-Z]{2,10}(?:\.(?:NS|BO))?\b")
+_PERCENT = re.compile(r"\b\d+(?:\.\d+)?%")
+_MONEY = re.compile(r"(?:₹|Rs\.?|INR)\s?\d[\d,]*(?:\.\d+)?")
+_ORG = re.compile(r"\b(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\b")
+_ORG_STOP = {"The", "This", "That", "India", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}
+
+
+def _entities(posts: List[Dict], top_n: int = 8) -> Dict[str, List[Dict]]:
+    """Rule-based NER: tickers, percentages, money, and title-case names."""
+    buckets = {"ticker": [], "percent": [], "money": [], "org": []}
+    for post in posts:
+        text = post.get("content") or ""
+        buckets["ticker"].extend(_TICKER.findall(text))
+        buckets["percent"].extend(_PERCENT.findall(text))
+        buckets["money"].extend(_MONEY.findall(text))
+        buckets["org"].extend(
+            name for name in _ORG.findall(text) if name.split()[0] not in _ORG_STOP
+        )
+    out = {}
+    for kind, values in buckets.items():
+        out[kind] = [{"text": t, "count": c} for t, c in Counter(values).most_common(top_n)]
+    return out
+
+
 def _themes(posts: List[Dict], top_n: int = 15) -> List[Dict]:
     words = []
     for p in posts:
@@ -156,6 +180,7 @@ def _build_analytics(scored: List[Dict], quote: Dict, source_counts: Dict[str, i
     return {
         "sentiment_histogram": _bucket_distribution(scores),
         "themes": _themes(scored),
+        "entities": _entities(scored),
         "top_bullish": [
             {"content": p["content"][:220], "score": p["sentiment"]["overall"], "source": p.get("source"), "url": p.get("url")}
             for p in bullish if p["sentiment"]["overall"] > 0

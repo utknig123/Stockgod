@@ -417,6 +417,16 @@ else:
             fig.update_layout(height=420, template="plotly_white", yaxis=dict(autorange="reversed"))
             st.plotly_chart(fig, use_container_width=True)
 
+        entities = analytics.get("entities") or {}
+        ticker_rows = entities.get("ticker") or []
+        if ticker_rows:
+            st.markdown("### Named entities")
+            st.dataframe(
+                pd.DataFrame(ticker_rows).rename(columns={"text": "Ticker", "count": "Mentions"}),
+                use_container_width=True,
+                hide_index=True,
+            )
+
     # ── POSTS ────────────────────────────────────────────────────────
     with tab_posts:
         posts = analysis.get("posts") or []
